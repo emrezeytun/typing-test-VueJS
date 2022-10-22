@@ -1,3 +1,3 @@
 export default {
-  gameTime: 12,
+  gameTime: 60,
 };

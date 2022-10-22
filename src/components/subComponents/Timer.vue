@@ -36,13 +36,11 @@
                 }, 1000)
             },
             timer() {
-                console.log(this.remainingTime)
-                 this.remainingTime--;
+                this.remainingTime--;
                 if(this.remainingTime <= 0) this.stopGame()
             },  
             stopGame() {
                 clearInterval(this.gameInterval)
-                console.log('evet geldi')
                 this.$emit('gameOptions', false)
             }
         },

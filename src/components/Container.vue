@@ -41,7 +41,6 @@ export default {
 
   created() {
    this.shuffleWords()
-    console.log(this.shuffleDatas)
   },
 
   computed: {
@@ -58,13 +57,11 @@ export default {
       this.typingWord = e
     },
     nextWord(answer) {
-      console.log(answer)
       answer ? this.counts.correct++ : this.counts.wrong++
       this.shuffleDatas.shift()
       this.shuffleDatas = [...this.shuffleDatas, this.wordDatas[Math.floor(Math.random() * (this.wordDatas.length-1))]]
     },
     gameOptions(gameStatus = false) {
-      console.log(gameStatus)
       this.isGameStarted = gameStatus
       !gameStatus ? this.remainingTime = 0 : this.resetGame()
     },

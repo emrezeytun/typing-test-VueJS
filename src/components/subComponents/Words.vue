@@ -29,6 +29,7 @@ export default {
         typingWord(e) {
             (e.data === ' ' && this.checkWord()) ? this.$emit('nextWord', true) : (e.data === ' ' && !this.checkWord()) && this.$emit('nextWord', false)
             this.checkWord(e.target.value, 'typing') ? this.isTypingWrong=false : this.isTypingWrong=true
+            if(e.data === ' ' && this.checkWord(e.target.value, 'finishing') )  this.isTypingWrong=true
         }
     },
 
@@ -37,14 +38,15 @@ export default {
           return  (this.isTypingWrong) ? 'words-container-false' : 'words-container-typing' 
         },
         checkWord( val = this.typingWord.target.value, type = 'finishing') {
-         return type === 'typing' ? this.wordDatas[0].slice(0,val.length).toLowerCase() === val.toLowerCase() : this.wordDatas[0].toLowerCase() === val.toLowerCase().split(' ')[0]
+            if(type === 'typing') return this.wordDatas[0].slice(0,val.length).toLowerCase() === val.toLowerCase()
+            else {
+                this.wordDatas[0].toLowerCase() === val.toLowerCase().split(' ')[0] ? this.isTypingWrong = true : this.isTypingWrong = false
+                return this.wordDatas[0].toLowerCase() === val.toLowerCase().split(' ')[0]
+
+            }
+        
         }
     },
-
-    created() {
-        console.log(this.wordDatas)
-    }
-
 }
 </script>
 
@@ -61,10 +63,12 @@ export default {
     &-typing {
         background-color: rgb(73, 73, 73);
         color: #fff;
+        border-radius: 4px;
     }
     &-false {
         background-color: red;
         color: #fff;
+        border-radius: 4px;
     }
 }
 
